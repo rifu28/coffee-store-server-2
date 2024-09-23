@@ -26,6 +26,7 @@ async function run() {
     await client.connect();
 
     const coffeCollections = client.db("fulkofiDB").collection("fulkofi");
+    const usersCollections = client.db("fulkofiDB").collection("users");
 
     app.get("/coffee", async (req, res) => {
       const cursor = coffeCollections.find();
@@ -43,6 +44,12 @@ async function run() {
     app.post("/coffee", async (req, res) => {
       const newCoffee = req.body;
       const result = await coffeCollections.insertOne(newCoffee);
+      res.send(result);
+    });
+
+    app.post("/users", async (req, res) => {
+      const users = req.body;
+      const result = await usersCollections.insertOne(users);
       res.send(result);
     });
 
