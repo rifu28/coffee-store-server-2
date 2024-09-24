@@ -47,6 +47,12 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/users", async (req, res) => {
+      const cursor = usersCollections.find();
+      const users = cursor.toArray();
+      res.send(users);
+    });
+
     app.post("/users", async (req, res) => {
       const users = req.body;
       const result = await usersCollections.insertOne(users);
